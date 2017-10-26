@@ -12,9 +12,10 @@ You can use this program to wake up a PC over the network. It sends the so calle
 ```
 ./WakeOnLAN <mac address>[ <broadcast address>]
 ```
-The first parameter is the mac address of the target (usually your's network card's mac address)
-The second parameter is options and defines the broadcast address to send the packet.
+The first parameter is the mac address of the target (usually your's network card's mac address).
+The second parameter is optional and defines the broadcast address to send the packet.
 
+Example
 ```
 ./wakeonlan 00:11:22:33:44:55 192.168.1.255
 ```
