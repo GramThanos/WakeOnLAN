@@ -9,25 +9,25 @@ A simple C program that sends a magic packet
 You can use this program to wake up a PC over the network. It sends the so called magic packet to the network card of the target PC, instructing it to open the PC. [Download](https://github.com/GramThanos/WakeOnLAN/releases)
 
 ## Usage
-```
+```bash
 ./WakeOnLAN <mac address>[ <broadcast address>]
 ```
 The first parameter is the mac address of the target (usually your's network card's mac address).
 The second parameter is optional and defines the broadcast address to send the packet.
 
 Example
-```
+```bash
 ./wakeonlan 00:11:22:33:44:55 192.168.1.255
 ```
 
 ## Compile from source
 For Linux you can compile the source using GCC
-```
+```bash
 gcc WakeOnLAN.c -o WakeOnLAN
 ```
 
 For Windows you can compile the source using MinGW
-```
+```bash
 gcc WakeOnLAN.c -o WakeOnLAN.exe -lwsock32
 ```
 
