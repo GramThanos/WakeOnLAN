@@ -6,9 +6,11 @@
 # WakeOnLAN
 A simple C program that sends a magic packet
 
-You can use this program to wake up a PC over the network. It sends the so called magic packet to the network card of the target PC, instructing it to open the PC. [Download](https://github.com/GramThanos/WakeOnLAN/releases)
+You can use this program to wake up a PC over the network. It sends the so called magic packet to the network card of the target PC, instructing it to open the PC. [[Download]](https://github.com/GramThanos/WakeOnLAN/releases)
 
-## Usage
+___
+
+### Usage
 ```bash
 ./WakeOnLAN <mac address>[ <broadcast address>]
 ```
@@ -20,7 +22,9 @@ Example
 ./wakeonlan 00:11:22:33:44:55 192.168.1.255
 ```
 
-## Compile from source
+___
+
+### Compile from source
 For Linux you can compile the source using GCC
 ```bash
 gcc WakeOnLAN.c -o WakeOnLAN
@@ -31,8 +35,9 @@ For Windows you can compile the source using MinGW
 gcc WakeOnLAN.c -o WakeOnLAN.exe -lwsock32
 ```
 
+___
 
-## Contact me
+### Contact me
 
 Contact us to leave us your feedback or to express your thoughts.
 
@@ -40,19 +45,17 @@ Contact us to leave us your feedback or to express your thoughts.
 
 [Send me a mail](mailto:agrammatopoulos@isc.tuc.gr)
 
+___
 
-
-## Buy me a beer :beer:
-
-I like beer, you can buy me one by donating to my Bitcoin wallet
-
-My Bitcoin wallet address `173advnPpAgh4UDJXd2TFwTCgAppBKvqKF`
-
-
-
-## License
+### License
 
 This project is under [The MIT license](https://opensource.org/licenses/MIT).
 We do although appreciate attribute.
 
 Copyright (c) 2017 Grammatopoulos Athanasios-Vasileios
+
+___
+
+[![GramThanos](https://avatars2.githubusercontent.com/u/14858959?s=42&v=4)](https://github.com/GramThanos)
+[![DinoDevs](https://avatars1.githubusercontent.com/u/17518066?s=42&v=4)](https://github.com/DinoDevs)
+
