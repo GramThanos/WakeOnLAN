@@ -19,7 +19,7 @@ The second parameter is optional and defines the broadcast address to send the p
 
 Example
 ```bash
-./wakeonlan 00:11:22:33:44:55 192.168.1.255
+./WakeOnLAN 00:11:22:33:44:55 192.168.1.255
 ```
 
 ___
