@@ -43,7 +43,7 @@ Contact us to leave us your feedback or to express your thoughts.
 
 [Open an issue](https://github.com/GramThanos/WakeOnLAN/issues)
 
-[Send me a mail](mailto:agrammatopoulos@isc.tuc.gr)
+[Send me a mail](mailto:gramthanos@gmail.com)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 This project is under [The MIT license](https://opensource.org/licenses/MIT).
 We do although appreciate attribute.
 
-Copyright (c) 2017 Grammatopoulos Athanasios-Vasileios
+Copyright (c) 2018 Grammatopoulos Athanasios-Vasileios
 
 ___
 
