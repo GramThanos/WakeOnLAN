@@ -24,6 +24,16 @@ Example
 
 ___
 
+### Binaries
+
+Platform | Links
+------------ | -------------
+Windows | [x86](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_windows_x86.zip)
+Linux | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_linux_x64.zip)
+Raspberry Pi | [arm](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_raspberrypi.zip)
+
+___
+
 ### Compile from source
 For Linux you can compile the source using GCC
 ```bash
