@@ -24,7 +24,7 @@ Example
 
 ___
 
-### Binaries
+### Pre-compiled Binaries
 
 Platform | Links
 ------------ | -------------
