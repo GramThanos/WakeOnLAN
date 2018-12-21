@@ -49,7 +49,7 @@ ___
 
 ### Contact me
 
-Contact us to leave us your feedback or to express your thoughts.
+Contact me to leave a feedback or to express your thoughts.
 
 [Open an issue](https://github.com/GramThanos/WakeOnLAN/issues)
 
