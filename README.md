@@ -47,22 +47,20 @@ gcc WakeOnLAN.c -o WakeOnLAN.exe -lwsock32
 
 ___
 
-### Contact me
+### Feedback
 
-Contact me to leave a feedback or to express your thoughts.
+For any problem you may [open an issue](https://github.com/GramThanos/WakeOnLAN/issues)
 
-[Open an issue](https://github.com/GramThanos/WakeOnLAN/issues)
-
-[Send me a mail](mailto:gramthanos@gmail.com)
+Also, you can [send me a mail](mailto:gramthanos@gmail.com)
 
 ___
 
 ### License
 
 This project is under [The MIT license](https://opensource.org/licenses/MIT).
-We do although appreciate attribute.
+I do although appreciate attribute.
 
-Copyright (c) 2018 Grammatopoulos Athanasios-Vasileios
+Copyright (c) 2019 Grammatopoulos Athanasios-Vasileios
 
 ___
 
