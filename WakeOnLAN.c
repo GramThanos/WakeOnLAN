@@ -36,8 +36,8 @@
 	#include <netdb.h>
 #endif
 #ifdef _WIN32
-	#include <windows.h>
 	#include <winsock2.h>
+	#include <windows.h>
 	#include <ws2tcpip.h>
 	#pragma comment(lib, "Ws2_32.lib")
 #endif
@@ -80,22 +80,19 @@ int main(int argc, const char* argv[]){
 	#ifdef __linux
 		// Socket
 		int udpSocket;
-		// Socket address
-		struct sockaddr_in udpClient;
-		struct sockaddr_in udpServer;
 	#endif
-
+	
 	// Windows socket
 	#ifdef _WIN32
 		// Socket data
 		WSADATA data;
 		// Socket
 		SOCKET udpSocket;
-		// Socket address
-		struct sockaddr_in udpClient;
-		struct sockaddr_in udpServer;
 	#endif
 
+	// Socket address
+	struct sockaddr_in udpClient, udpServer;
+	
 	// Help variables
 	int i = 0;
 	
@@ -174,7 +171,7 @@ int main(int argc, const char* argv[]){
 		udpServer.sin_port = htons(9);
 
 		// Send the packet
-		sendto(udpSocket, packet, sizeof(unsigned char) * 102, 0, (struct sockaddr*) &udpServer, sizeof(udpServer));
+		sendto(udpSocket, (char*)&packet, sizeof(unsigned char) * 102, 0, (struct sockaddr*) &udpServer, sizeof(udpServer));
 	#endif
 
 	// Done
