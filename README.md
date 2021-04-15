@@ -1,7 +1,6 @@
 [![latest version](https://img.shields.io/badge/latest%20version-v0.3-green.svg?style=flat-square)](https://github.com/GramThanos/WakeOnLAN/releases/latest)
 ![Windows build](https://img.shields.io/badge/window%20build-pass-blue.svg?style=flat-square)
-![Linux build](https://img.shields.io/badge/linux%20build-pass-blue.svg?style=flat-square)
-![Mac build](https://img.shields.io/badge/mac%20build-not--available-red.svg?style=flat-square)
+![Mac build](https://img.shields.io/badge/mac%20build-pass-blue.svg?style=flat-square)
 
 # WakeOnLAN
 A simple C program that sends a magic packet
