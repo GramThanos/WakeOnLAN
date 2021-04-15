@@ -41,6 +41,12 @@
 	#include <ws2tcpip.h>
 	#pragma comment(lib, "Ws2_32.lib")
 #endif
+#ifdef __APPLE__
+	#include <sys/types.h>
+	#include <sys/socket.h>
+	#include <netinet/in.h>
+	#include <arpa/inet.h>
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -76,12 +82,6 @@ int main(int argc, const char* argv[]){
 	// Set broadcast
 	int broadcast = 1;
 
-	// Linux socket
-	#ifdef __linux
-		// Socket
-		int udpSocket;
-	#endif
-	
 	// Windows socket
 	#ifdef _WIN32
 		// Socket data
@@ -125,12 +125,17 @@ int main(int argc, const char* argv[]){
 	// Create Magic Packet
 	createMagicPacket(packet, mac);
 
-	// Linux socket
-	#ifdef __linux
-		// Setup broadcast socket
-		udpSocket = socket(AF_INET, SOCK_DGRAM, 0);
-		if(setsockopt(udpSocket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof broadcast) == -1){
-			printf("Failed to setup a broadcast socket.\n");
+
+	// MacOS and Linux
+	#if defined(__APPLE__) || defined(__linux)
+		int udpSocket = socket(AF_INET, SOCK_DGRAM, 0);
+		if (udpSocket == -1) {
+			printf("An error was encountered creating the UDP socket: '%s'.\n", strerror(errno));
+			exit(EXIT_FAILURE);
+		}
+		int setsock_result = setsockopt(udpSocket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof broadcast);
+		if (setsock_result == -1) {
+			printf("Failed to set socket options: '%s'.\n", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
 		// Set parameters
@@ -138,7 +143,11 @@ int main(int argc, const char* argv[]){
 		udpClient.sin_addr.s_addr = INADDR_ANY;
 		udpClient.sin_port = 0;
 		// Bind socket
-		bind(udpSocket, (struct sockaddr*) &udpClient, sizeof(udpClient));
+		int bind_result = bind(udpSocket, (struct sockaddr*) &udpClient, sizeof(udpClient));
+		if (bind_result == -1) {
+			printf("Failed to bind socket: '%s'.\n", strerror(errno));
+			exit(EXIT_FAILURE);
+		}
 
 		// Set server end point (the broadcast addres)
 		udpServer.sin_family = AF_INET;
@@ -146,8 +155,13 @@ int main(int argc, const char* argv[]){
 		udpServer.sin_port = htons(9);
 
 		// Send the packet
-		sendto(udpSocket, &packet, sizeof(unsigned char) * 102, 0, (struct sockaddr*) &udpServer, sizeof(udpServer));
+		int result = sendto(udpSocket, &packet, sizeof(unsigned char) * 102, 0, (struct sockaddr*) &udpServer, sizeof(udpServer));
+		if (result == -1) {
+			printf("Failed to send magic packet to socket: '%s'.\n", strerror(errno));
+			exit(EXIT_FAILURE);
+		}
 	#endif
+
 
 	// Windows socket
 	#ifdef _WIN32
