@@ -126,7 +126,7 @@ int main(int argc, const char* argv[]){
 	createMagicPacket(packet, mac);
 
 
-	// MacOS
+	// MacOS and Linux
 	#if defined(__APPLE__) || defined(__linux)
 		int udpSocket = socket(AF_INET, SOCK_DGRAM, 0);
 		if (udpSocket == -1) {
