@@ -1,2 +1,2 @@
-WakeOnLAN: WakeOnLan.c
-	gcc -o WakeOnLAN WakeOnLAN.c
+WakeOnLAN: WakeOnLAN.c
+	$(CC) -o $@ $<
