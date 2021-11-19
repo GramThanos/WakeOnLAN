@@ -75,7 +75,7 @@ void createMagicPacket(unsigned char packet[], unsigned int macAddress[]){
 // Main Program
 int main(int argc, const char* argv[]){
 	// Default broadcast address
-	char broadcastAddress[16] = "192.168.1.255";
+	char broadcastAddress[] = "255.255.255.255";
 	// Packet buffer
 	unsigned char packet[102];
 	// Mac address
@@ -118,7 +118,7 @@ int main(int argc, const char* argv[]){
 		// Parse Broadcast Address
 		i = sscanf(argv[2],"%d.%d.%d.%d", &i, &i, &i, &i);
 		if(i == 4){
-			strcpy(broadcastAddress, argv[2]);
+			strncpy(broadcastAddress, argv[2], sizeof(broadcastAddress)-1);
 		}
 	}
 	printf("Broadcast address %s will be used.\n", broadcastAddress);
