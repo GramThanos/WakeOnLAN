@@ -45,6 +45,15 @@ For Windows you can compile the source using MinGW
 gcc WakeOnLAN.c -o WakeOnLAN.exe -lwsock32
 ```
 
+### Makefile
+GNU make can be used in order to compile the sources on Linux/Mac:
+```bash
+make
+```
+to clean everything:
+```bash
+make clean
+```
 ___
 
 ### Feedback
