@@ -12,14 +12,15 @@ ___
 
 ### Usage
 ```bash
-./WakeOnLAN <mac address>[ <broadcast address>]
+./WakeOnLAN <mac address>[ <broadcast address>][ <interface>]
 ```
 The first parameter is the mac address of the target (usually your's network card's mac address).
 The second parameter is optional and defines the broadcast address to send the packet.
+The third parameter is optional and defines the source interface to send the packet from it (not for windows).
 
 Example
 ```bash
-./WakeOnLAN 00:11:22:33:44:55 192.168.1.255
+./WakeOnLAN 00:11:22:33:44:55 192.168.1.255 eth0
 ```
 
 ___
