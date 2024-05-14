@@ -54,6 +54,15 @@ to clean everything:
 ```bash
 make clean
 ```
+
+### CMake
+CMake can also be used on Linux/Mac:
+```bash
+mkdir build
+cd build
+cmake ..
+cmake --build .
+```
 ___
 
 ### Feedback
