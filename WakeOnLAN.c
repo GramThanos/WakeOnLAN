@@ -35,6 +35,7 @@
 	#include <netinet/in.h>
 	#include <arpa/inet.h>
 	#include <netdb.h>
+	#include <net/if.h>
 #endif
 #ifdef _WIN32
 	#include <winsock2.h>
@@ -47,6 +48,7 @@
 	#include <sys/socket.h>
 	#include <netinet/in.h>
 	#include <arpa/inet.h>
+	#include <net/if.h>
 #endif
 
 #include <stdio.h>
@@ -99,7 +101,7 @@ int main(int argc, const char* argv[]){
 	
 	// If no arguments
 	if(argc < 2){
-		printf("Usage:\n./wakeonlan <mac address> (<broadcast address>)\n");
+		printf("Usage:\n./wakeonlan <mac address> (<broadcast address>) (<interface>)\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -149,7 +151,15 @@ int main(int argc, const char* argv[]){
 			printf("Failed to bind socket: '%s'.\n", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
-
+		if(argv[3]) {
+			struct ifreq ifr;
+			memset(&ifr, 0, sizeof(ifr));
+			snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", argv[3]);
+			if (setsockopt(udpSocket, SOL_SOCKET, SO_BINDTODEVICE, (void *)&ifr, sizeof(ifr)) < 0) {
+				printf("Failed to bind interface: '%s'.\n", strerror(errno));
+				exit(EXIT_FAILURE);
+			}
+		}
 		// Set server end point (the broadcast addres)
 		udpServer.sin_family = AF_INET;
 		udpServer.sin_addr.s_addr = inet_addr(broadcastAddress);
