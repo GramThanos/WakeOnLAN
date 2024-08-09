@@ -63,7 +63,7 @@ void createMagicPacket(unsigned char packet[], unsigned int macAddress[]){
 	// Mac Address Variable
 	unsigned char mac[6];
 
-	// 6 x 0xFF on start of packet
+	// 6 x 0xFF at start of packet
 	for(i = 0; i < 6; i++){
 		packet[i] = 0xFF;
 		mac[i] = macAddress[i];
@@ -101,19 +101,20 @@ int main(int argc, const char* argv[]){
 	
 	// If no arguments
 	if(argc < 2){
-		printf("Usage:\n./wakeonlan <mac address> (<broadcast address>) (<interface>)\n");
+		printf("Usage:\n%s <mac address> [<broadcast address>]", argv[0]);
+		#ifndef _WIN32
+			printf(" [<interface>]");
+		#endif
+		printf("\n");
 		exit(EXIT_FAILURE);
 	}
 
 	// Parse Mac Address
 	i = sscanf(argv[1],"%x:%x:%x:%x:%x:%x", &(mac[0]), &(mac[1]), &(mac[2]), &(mac[3]), &(mac[4]), &(mac[5]));
 	if(i != 6){
-		printf("Invalid mac address was given.\n");
+		printf("Invalid mac address. Please specify a valid mac address in the format xx:xx:xx:xx:xx:xx\n");
 		exit(EXIT_FAILURE);
 	}
-
-	// Print address
-	printf("Packet will be sent to %02x:%02x:%02x:%02x:%02x:%02x\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 
 	// Check if a broadcast address was given too
 	if(argc > 2){
@@ -123,7 +124,6 @@ int main(int argc, const char* argv[]){
 			strncpy(broadcastAddress, argv[2], sizeof(broadcastAddress)-1);
 		}
 	}
-	printf("Broadcast address %s will be used.\n", broadcastAddress);
 
 	// Create Magic Packet
 	createMagicPacket(packet, mac);
@@ -133,7 +133,7 @@ int main(int argc, const char* argv[]){
 	#if defined(__APPLE__) || defined(__linux)
 		int udpSocket = socket(AF_INET, SOCK_DGRAM, 0);
 		if (udpSocket == -1) {
-			printf("An error was encountered creating the UDP socket: '%s'.\n", strerror(errno));
+			printf("An error occurred while creating the UDP socket: '%s'.\n", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
 		int setsock_result = setsockopt(udpSocket, SOL_SOCKET, SO_BROADCAST, &broadcast, sizeof broadcast);
@@ -200,6 +200,6 @@ int main(int argc, const char* argv[]){
 	#endif
 
 	// Done
-	printf("Wake up packet was sent.\n");
+	printf("Magic packet sent to %02x:%02x:%02x:%02x:%02x:%02x with broadcast %s\n", mac[0], mac[1], mac[2], mac[3], mac[4], mac[5], broadcastAddress);
 	exit(EXIT_SUCCESS);
 }
