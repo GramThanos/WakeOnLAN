@@ -14,9 +14,9 @@ ___
 ```bash
 ./WakeOnLAN <mac address>[ <broadcast address>][ <interface>]
 ```
-The first parameter is the mac address of the target (usually your's network card's mac address).
+The first parameter is the mac address of the target (usually your network card's mac address).
 The second parameter is optional and defines the broadcast address to send the packet.
-The third parameter is optional and defines the source interface to send the packet from it (not for windows).
+The third parameter is optional and defines the source interface to send the packet from (not for windows).
 
 Example
 ```bash
@@ -46,12 +46,18 @@ For Windows you can compile the source using MinGW
 gcc WakeOnLAN.c -o WakeOnLAN.exe -lwsock32
 ```
 
+Or Open up a Visual Studio Native Tools Command Prompt, navigate to your source directory
+```bash
+cl WakeOnLAN.c -o WakeOnLAN.exe
+```
+
 ### Makefile
 GNU make can be used in order to compile the sources on Linux/Mac:
 ```bash
 make
 ```
-to clean everything:
+
+To clean everything:
 ```bash
 make clean
 ```
@@ -68,16 +74,16 @@ ___
 
 ### Feedback
 
-For any problem you may [open an issue](https://github.com/GramThanos/WakeOnLAN/issues)
+For any problems, you may [open an issue](https://github.com/GramThanos/WakeOnLAN/issues)
 
-Also, you can [send me a mail](mailto:gramthanos@gmail.com)
+Also, you can [send me an email](mailto:gramthanos@gmail.com)
 
 ___
 
 ### License
 
 This project is under [The MIT license](https://opensource.org/licenses/MIT).
-I do although appreciate attribute.
+I do appreciate attribution.
 
 Copyright (c) 2019 Grammatopoulos Athanasios-Vasileios
 

@@ -1,3 +1,6 @@
 # build artifacts
 /WakeOnLAN
+WakeOnLAN.exe
+WakeOnLAN.obj
+wakeonlan
 build
