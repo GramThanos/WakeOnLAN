@@ -151,7 +151,7 @@ int main(int argc, const char* argv[]){
 			printf("Failed to bind socket: '%s'.\n", strerror(errno));
 			exit(EXIT_FAILURE);
 		}
-		if(argv[3]) {
+		if(argc > 2) {
 			struct ifreq ifr;
 			memset(&ifr, 0, sizeof(ifr));
 			snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", argv[3]);
