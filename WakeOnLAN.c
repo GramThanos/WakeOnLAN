@@ -57,6 +57,12 @@
 #include <string.h>
 #include <ctype.h>
 
+#ifdef __APPLE__
+	#define SO_BIND_OPT_NAME IP_BOUND_IF
+#elif defined(__linux)
+	#define SO_BIND_OPT_NAME SO_BINDTODEVICE
+#endif
+
 // Create Magic Packet
 void createMagicPacket(unsigned char packet[], unsigned int macAddress[]){
 	int i;
@@ -155,7 +161,7 @@ int main(int argc, const char* argv[]){
 			struct ifreq ifr;
 			memset(&ifr, 0, sizeof(ifr));
 			snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", argv[3]);
-			if (setsockopt(udpSocket, SOL_SOCKET, SO_BINDTODEVICE, (void *)&ifr, sizeof(ifr)) < 0) {
+			if (setsockopt(udpSocket, SOL_SOCKET, SO_BIND_OPT_NAME, (void *)&ifr, sizeof(ifr)) < 0) {
 				printf("Failed to bind interface: '%s'.\n", strerror(errno));
 				exit(EXIT_FAILURE);
 			}
