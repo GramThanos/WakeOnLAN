@@ -22,7 +22,19 @@ Example
 ```bash
 ./WakeOnLAN 00:11:22:33:44:55 192.168.1.255 eth0
 ```
-
+or, from a file with MAC addresses inside:
+```bash
+./WakeOnLAN -f macs-list.txt
+```
+where `macs-list.txt` has one MAC address per line:
+```
+00:1A:2B:3C:4D:5E
+00:11:22:33:44:55
+12:34:56:78:90:AB
+.
+.
+.
+```
 ___
 
 ### Pre-compiled Binaries
