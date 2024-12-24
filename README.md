@@ -1,4 +1,5 @@
-[![latest version](https://img.shields.io/badge/latest%20version-v0.3-green.svg?style=flat-square)](https://github.com/GramThanos/WakeOnLAN/releases/latest)
+[![latest release](https://img.shields.io/badge/latest%20release-v0.3-green.svg?style=flat-square)](https://github.com/GramThanos/WakeOnLAN/releases/latest)
+[![latest dev](https://img.shields.io/badge/latest%20dev-v1.0-orange.svg?style=flat-square)](https://github.com/GramThanos/WakeOnLAN/releases/latest)
 ![Windows build](https://img.shields.io/badge/window%20build-pass-blue.svg?style=flat-square)
 ![Linux build](https://img.shields.io/badge/linux%20build-pass-blue.svg?style=flat-square)
 ![Mac build](https://img.shields.io/badge/mac%20build-pass-blue.svg?style=flat-square)
@@ -6,7 +7,7 @@
 # WakeOnLAN
 A simple C program that sends a magic packet
 
-You can use this program to wake up a PC over the network. It sends the so called magic packet to the network card of the target PC, instructing it to open the PC. [[Download]](https://github.com/GramThanos/WakeOnLAN/releases)
+You can use this program to wake up a PC over the network. It sends the so-called magic packet to the network card of the target PC, instructing it to open the PC. [[Download]](https://github.com/GramThanos/WakeOnLAN/releases)
 
 ___
 
@@ -16,7 +17,7 @@ ___
 ```
 The first parameter is the mac address of the target (usually your network card's mac address).
 The second parameter is optional and defines the broadcast address to send the packet.
-The third parameter is optional and defines the source interface to send the packet from (not for windows).
+The third parameter is optional and defines the source interface to send the packet from (not for Windows).
 
 Example
 ```bash
@@ -37,9 +38,9 @@ where `macs-list.txt` has one MAC address per line:
 ```
 ___
 
-### Pre-compiled Binaries
+### Pre-compiled Binaries (Latest Release)
 
-Platform | Links
+Platform | Links v0.3
 ------------ | -------------
 Windows | [x86](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_windows_x86.zip)
 Linux | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_linux_x64.zip)
@@ -48,12 +49,12 @@ Raspberry Pi | [arm](https://github.com/GramThanos/WakeOnLAN/releases/download/v
 ___
 
 ### Compile from source
-For Linux you can compile the source using GCC
+For Linux, you can compile the source using GCC
 ```bash
 gcc WakeOnLAN.c -o WakeOnLAN
 ```
 
-For Windows you can compile the source using MinGW
+For Windows, you can compile the source using MinGW
 ```bash
 gcc WakeOnLAN.c -o WakeOnLAN.exe -lwsock32
 ```
@@ -97,7 +98,7 @@ ___
 This project is under [The MIT license](https://opensource.org/licenses/MIT).
 I do appreciate attribution.
 
-Copyright (c) 2019 Grammatopoulos Athanasios-Vasileios
+Copyright (c) 2024 Grammatopoulos Athanasios-Vasileios
 
 ___
 
