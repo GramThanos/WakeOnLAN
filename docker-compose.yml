@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  linux-x64:
+    image: dockcross/linux-x64
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/linux-x64 -S . && cmake --build build/linux-x64 && mv build/linux-x64/WakeOnLan build/WakeOnLan-linux-x64 && rm -rf build/linux-x64"
+
+  linux-x86:
+    image: dockcross/linux-x86
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/linux-x86 -S . && cmake --build build/linux-x86 && mv build/linux-x86/WakeOnLan build/WakeOnLan-linux-x86 && rm -rf build/linux-x86"
+
+  linux-arm64:
+    image: dockcross/linux-arm64
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/linux-arm64 -S . && cmake --build build/linux-arm64 && mv build/linux-arm64/WakeOnLan build/WakeOnLan-linux-arm64 && rm -rf build/linux-arm64"
+
+  windows-x64:
+    image: dockcross/windows-static-x64
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/windows-x64 -S . && cmake --build build/windows-x64 && mv build/windows-x64/WakeOnLan.exe build/WakeOnLan-windows-x64.exe && rm -rf build/windows-x64"
+
+  windows-x86:
+    image: dockcross/windows-static-x86
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/windows-x86 -S . && cmake --build build/windows-x86 && mv build/windows-x86/WakeOnLan.exe build/WakeOnLan-windows-x86.exe && rm -rf build/windows-x86"
+
+  windows-arm64:
+    image: dockcross/windows-arm64
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/windows-arm64 -S . && cmake --build build/windows-arm64 && mv build/windows-arm64/WakeOnLan.exe build/WakeOnLan-windows-arm64.exe && rm -rf build/windows-arm64"
+
+  macos-x64:
+    build:
+      context: .
+      dockerfile_inline: |
+        # syntax=docker/dockerfile:1
+        FROM crazymax/osxcross:latest-ubuntu AS osxcross
+        
+        FROM ubuntu:24.04
+        
+        RUN apt-get update && \
+            DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            clang lld libc6-dev && \
+            rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man && \
+            apt-get clean
+        
+        COPY --from=osxcross /osxcross /osxcross
+        
+        ENV PATH="/osxcross/bin:$$PATH"
+        ENV LD_LIBRARY_PATH="/osxcross/lib:$$LD_LIBRARY_PATH"
+    volumes:
+      - .:/work
+    working_dir: /work
+    command: sh -c "mkdir -p build && o64-clang -O2 WakeOnLAN.c -o build/WakeOnLan-macos-x64"
+
+  macos-arm64:
+    build:
+      context: .
+      dockerfile_inline: |
+        # syntax=docker/dockerfile:1
+        FROM crazymax/osxcross:latest-ubuntu AS osxcross
+        
+        FROM ubuntu:24.04
+        
+        RUN apt-get update && \
+            DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            clang lld libc6-dev && \
+            rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man && \
+            apt-get clean
+        
+        COPY --from=osxcross /osxcross /osxcross
+        
+        ENV PATH="/osxcross/bin:$$PATH"
+        ENV LD_LIBRARY_PATH="/osxcross/lib:$$LD_LIBRARY_PATH"
+    volumes:
+      - .:/work
+    working_dir: /work
+    # Using oa64-clang compiler for Apple Silicon (ARM64) target
+    command: sh -c "mkdir -p build && oa64-clang -O2 WakeOnLAN.c -o build/WakeOnLan-macos-arm64"

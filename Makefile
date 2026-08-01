@@ -1,9 +1,11 @@
+CFLAGS = -Wall -Wextra
+
 WakeOnLAN: WakeOnLAN.c
-	$(CC) -o $@ $<
+	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm WakeOnLAN
+	rm -f WakeOnLAN
 
 all: WakeOnLAN
 
-.PHONY: WakeOnLan all
+.PHONY: WakeOnLAN all clean
