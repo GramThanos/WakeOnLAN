@@ -63,14 +63,8 @@
 	#define delay_ms(ms) usleep((ms) * 1000)
 #endif
 
-/* Platform-specific socket binding option */
-#ifdef __APPLE__
-	#define SO_BIND_OPT_NAME IP_BOUND_IF
-#elif defined(__linux__)
-	#define SO_BIND_OPT_NAME SO_BINDTODEVICE
-#endif
-
 /* Constants */
+#define WOL_VERSION       "v0.4-beta"
 #define MAC_ADDR_BYTES    6
 #define MAC_REPETITIONS   16
 #define MAGIC_PACKET_SIZE (MAC_ADDR_BYTES + MAC_REPETITIONS * MAC_ADDR_BYTES) /* 102 bytes */
@@ -171,7 +165,7 @@ static int isValidMacAddress(const unsigned int mac[]) {
  * @param packet Where to store the created magic packet (must be at least MAGIC_PACKET_SIZE bytes).
  * @param macAddress The mac address to send the magic packet to (MAC_ADDR_BYTES unsigned ints).
  */
-static void createMagicPacket(unsigned char packet[], unsigned int macAddress[]) {
+static void createMagicPacket(unsigned char packet[], const unsigned int macAddress[]) {
 	int i;
 
 	/* MAC address as bytes */
@@ -262,11 +256,18 @@ static int sendMagicPacket(const unsigned char *packet,
 
 		/* Bind to specific interface if requested */
 		if (iface_name) {
-			#if defined(__APPLE__) || defined(__linux__)
+			#if defined(__APPLE__)
+			unsigned int if_index = if_nametoindex(iface_name);
+			if (if_index == 0 || setsockopt(udpSocket, IPPROTO_IP, IP_BOUND_IF, (const void *)&if_index, sizeof(if_index)) < 0) {
+				PRINT_SOCKET_ERROR("Failed to bind interface");
+				CLOSE_SOCKET(udpSocket);
+				return 1;
+			}
+			#elif defined(__linux__)
 			struct ifreq ifr;
 			memset(&ifr, 0, sizeof(ifr));
 			snprintf(ifr.ifr_name, sizeof(ifr.ifr_name), "%s", iface_name);
-			if (setsockopt(udpSocket, SOL_SOCKET, SO_BIND_OPT_NAME, (void *)&ifr, sizeof(ifr)) < 0) {
+			if (setsockopt(udpSocket, SOL_SOCKET, SO_BINDTODEVICE, (const void *)&ifr, sizeof(ifr)) < 0) {
 				PRINT_SOCKET_ERROR("Failed to bind interface");
 				CLOSE_SOCKET(udpSocket);
 				return 1;
@@ -330,7 +331,7 @@ static int sendMagicPacketsFromFile(const char *filename, const char *broadcastA
 			continue;
 		}
 
-		result = sscanf(line, "%x:%x:%x:%x:%x:%x",
+		result = sscanf(line, "%2x:%2x:%2x:%2x:%2x:%2x",
 						&mac[0], &mac[1], &mac[2],
 						&mac[3], &mac[4], &mac[5]);
 		if (result != MAC_ADDR_BYTES) {
@@ -370,6 +371,36 @@ static int sendMagicPacketsFromFile(const char *filename, const char *broadcastA
 }
 
 
+/**
+ * @brief Print program usage
+ *
+ * @param stream Stream to print to (e.g. stdout or stderr).
+ * @param program_name The name of the program (argv[0]).
+ */
+static void printUsage(FILE *stream, const char *program_name) {
+	fprintf(stream, "Usage:\n%s [<mac address> | -f macs-list.txt] [<broadcast address>]", program_name);
+	#ifndef _WIN32
+		fprintf(stream, " [<interface>]");
+	#endif
+	fprintf(stream, "\n");
+}
+
+
+/**
+ * @brief Print help information
+ *
+ * @param program_name The name of the program (argv[0]).
+ */
+static void printHelp(const char *program_name) {
+	printUsage(stdout, program_name);
+	fprintf(stdout,
+		"\nOptions:\n"
+		"  -f <file>   Send a magic packet for each MAC address listed in <file>\n"
+		"  -h          Show this help message and exit\n"
+		"  -v          Show version information and exit\n");
+}
+
+
 /* Main Program */
 int main(int argc, char *argv[]) {
 	/* Help variables */
@@ -391,20 +422,22 @@ int main(int argc, char *argv[]) {
 
 	/* If no arguments given, print usage */
 	if (argc < 2) {
-		fprintf(stderr, "Usage:\n%s [<mac address> | -f macs-list.txt] [<broadcast address>]", program_name);
-		#ifndef _WIN32
-			fprintf(stderr, " [<interface>]");
-		#endif
-		fprintf(stderr, "\n");
+		printUsage(stderr, program_name);
 		return EXIT_FAILURE;
 	}
 
 	/* Parse options using getopt */
-	while ((opt = getopt(argc, argv, "f:")) != -1) {
+	while ((opt = getopt(argc, argv, "f:hv")) != -1) {
 		switch (opt) {
 			case 'f':
 				file_name = optarg;
 				break;
+			case 'h':
+				printHelp(program_name);
+				return EXIT_SUCCESS;
+			case 'v':
+				printf("WakeOnLAN %s\n", WOL_VERSION);
+				return EXIT_SUCCESS;
 			default:
 				fprintf(stderr, "Unknown option.\n");
 				return EXIT_FAILURE;
@@ -449,7 +482,7 @@ int main(int argc, char *argv[]) {
 		}
 
 		/* Parse Mac Address */
-		result = sscanf(argv[optind], "%x:%x:%x:%x:%x:%x",
+		result = sscanf(argv[optind], "%2x:%2x:%2x:%2x:%2x:%2x",
 						&mac[0], &mac[1], &mac[2], &mac[3], &mac[4], &mac[5]);
 		if (result != MAC_ADDR_BYTES) {
 			fprintf(stderr, "Invalid mac address. Please specify a valid mac address in the format xx:xx:xx:xx:xx:xx\n");
