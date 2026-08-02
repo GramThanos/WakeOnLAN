@@ -19,6 +19,12 @@ services:
       - .:/work
     command: bash -c "cmake -B build/linux-arm64 -S . && cmake --build build/linux-arm64 && mv build/linux-arm64/WakeOnLAN build/WakeOnLAN-linux-arm64 && rm -rf build/linux-arm64"
 
+  linux-armv6:
+    image: dockcross/linux-armv6
+    volumes:
+      - .:/work
+    command: bash -c "cmake -B build/linux-armv6 -S . && cmake --build build/linux-armv6 && mv build/linux-armv6/WakeOnLAN build/WakeOnLAN-linux-armv6 && rm -rf build/linux-armv6"
+
   windows-x64:
     image: dockcross/windows-static-x64
     volumes:

@@ -6,6 +6,7 @@ echo "Starting cross-compilation sequentially for all platforms..."
 docker compose run --rm linux-x64
 docker compose run --rm linux-x86
 docker compose run --rm linux-arm64
+docker compose run --rm linux-armv6
 docker compose run --rm windows-x64
 docker compose run --rm windows-x86
 docker compose run --rm windows-arm64
