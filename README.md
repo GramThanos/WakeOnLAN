@@ -54,8 +54,8 @@ where the MAC list file has one MAC address per line:
 | ------------ | ------------- | ------------- |
 | Windows | [x86](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_windows_x86.zip) | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_windows_x64.zip) · [x86](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_windows_x86.zip) · [arm64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_windows_arm64.zip) |
 | Linux | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_linux_x64.zip) | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_linux_x64.zip) · [x86](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_linux_x86.zip) · [arm64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_linux_arm64.zip) |
-| macOS | — | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_macos_x64.zip) · [arm64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_macos_arm64.zip) |
-| Raspberry Pi | [arm](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_raspberrypi.zip) | [arm64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_linux_arm64.zip) |
+| macOS | - | [x64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_macos_x64.zip) · [arm64](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.4-beta/WakeOnLAN_v0.4-beta_macos_arm64.zip) |
+| Raspberry Pi | [arm](https://github.com/GramThanos/WakeOnLAN/releases/download/v0.3/WakeOnLAN_v0.3_raspberrypi.zip) | - |
 
 ### Quick install (x64)
 
